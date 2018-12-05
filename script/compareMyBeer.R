@@ -1,4 +1,3 @@
-#source(file = "script/calc_similarity.R")
 compareMyBeer <- function(myBeer) {
   beer1 <- myBeer
   id <- detect_beerid(name = beer1)
