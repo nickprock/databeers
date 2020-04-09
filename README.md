@@ -10,6 +10,9 @@ In MAIN.R trovate un sempio su come funziona il sistema di raccomandazioni.
 Ringrazio in anticipo quanti lo scaricheranno, ci lavoreranno e forniranno feedback per migliorare sia il programma che il mio modo di lavorare.  
 Vi lascio il link dell'esperimento originale: http://blog.yhat.com/posts/recommender-system-in-r.html
 
+## Dataset
+Per le limitazioni sul mio account free ho caricato solo un campione di dati, [il dataset originale potete trovarlo su data.world](https://data.world/socialmediadata/beeradvocate)
+
 # Citation
 Se usi il mio codice nella tua ricerca, cita questo progetto.
 ```
