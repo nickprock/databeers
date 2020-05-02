@@ -1,6 +1,6 @@
 # carica il dataset
 source(file = "script/functions.R")
-data <- loadBeerReviews()
+load("data/beer_reviews.rda")
 # cerca la birra
 getBeerList(letter = "Bush De No")
 # recEngine

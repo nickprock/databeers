@@ -1,10 +1,13 @@
 library(dplyr)
 #library(readr)
 library(stringr)
+options( warn = -1 )
+'
 # carica il file con le recensioni
 loadBeerReviews <- function(){
-  read.csv("data/beer_reviews.csv", stringsAsFactors = F, encodong = "UTF-8")
+  read.csv("data/beer_reviews.csv", stringsAsFactors = F)
 }
+'
 # data almeno una lettera restituisce la lista delle birre che iniziano con questa stringa
 getBeerList<- function(letter){
   x <- data %>%

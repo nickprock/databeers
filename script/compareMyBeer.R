@@ -1,3 +1,4 @@
+options( warn = -1 )
 compareMyBeer <- function(myBeer) {
   beer1 <- myBeer
   id <- detect_beerid(name = beer1)
