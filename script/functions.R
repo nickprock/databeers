@@ -37,7 +37,7 @@ common_reviewers <- function(beer1, beer2) {
     select(review_profilename)
   reviewers_sameset <- intersect(reviews1,reviews2)
   if (length(reviewers_sameset)==0) {
-    NA
+    return(NA)
   } else {
     return(reviewers_sameset[[1]])
   }
