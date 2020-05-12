@@ -1,6 +1,13 @@
-# databeers
-## Esperimento di recommender engine sulle birre.
-Un anno fa ho trovato sul blog di yhat.com un articolo su recommender system in R.  
+# databeers: Esperimento di recommender engine sulle birre.
+Databeers nasce dalla passione per la birra, la data science e la passione R di due amici. Iniziato come un esercizio per passare un fine settimana di pioggia si propone di diventare un sistema consultabile per scoprire nuove etichette.
+
+Il repo è un passatempo non abbiamo nessuna intenzione commerciale quindi il codice potrebbe essere non ottimizzato.
+*I feedback sono sempre ben accetti*, potete usare le issue per segnalarci bug o miglioramenti, potete usare il fork e fare un vostro progetto o aiutarci a risolvere criticità.
+
+**#enjoy**
+
+## Funzioni R
+Nei primi mesi del 2018 sul blog di yhat.com ho letto un articolo su recommender system in R.  
 Ho provato a ottimizzare il codice lavorando con dplyr.  
 Il lavoro non è ancora finito. In particolare:  
 - ho lavorato su quello che sta in functions.R  
@@ -13,11 +20,57 @@ Vi lascio il link dell'esperimento originale: http://blog.yhat.com/posts/recomme
 ## Dataset
 Per le limitazioni sul mio account free ho caricato solo un campione di dati, [il dataset originale potete trovarlo su data.world](https://data.world/socialmediadata/beeradvocate)
 
+Successivamente sono riuscito a caricare l'intero dataset in formato .rda.
+
+Nico
+
+## Shiny App
+
+Partendo dal lavoro descritto in precedenza è stata sviluppata una web app con [shiny](https://shiny.rstudio.com/) per rappresentare gli output.
+In questa web app viene preso in considerazione l'intero dataset, circa 1.5MLN direcensioni su birre perciò il caricamento iniziale richiederà del tempo come mostra la prima schermata dell'app:
+
+![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/1_caricamento.jpg)
+
+Un messaggio informerà sull'avvenuto caricamento dei dati
+
+![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/2_esito.jpg)
+
+
+L'app è suddivisa in 3 sezioni
+
+
+* Birre 
+* Compara
+* Scopri
+
+### Birre
+
+In questa tab si scegli la birra per la quale si desidera vedere le recensioni.
+
+![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/3_Birre.jpg)
+
+### Compara
+
+Attraverso una delle funzioni sviluppate da Nicola Procopio vengono comparate le birre, mettendo in risalto le informazioni attribuite a ciascuna birra.
+
+![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/4_compara.jpg)
+
+### Scopri
+
+Nell'ultima tab si valuta il modello di raccomandazione che suggerisce le birre più simili alla tua scelta, qualora ve ne sia una che rispecchia il giusto confronto.
+
+![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/5_scopri.jpg)
+
+### Link
+[Potete trovare l'app qui]()
+
+Marco
+
 # Citation
 Se usi il mio codice nella tua ricerca, cita questo progetto.
 ```
 @misc{databeers,
-  author =       {Nicola Procopio},
+  author =       {Nicola Procopio, Marco Cortese},
   title =        {DataBeeRs},
   howpublished = {\url{https://github.com/nickprock/databeers/}},
   year =         {2018}
