@@ -29,11 +29,11 @@ Nico
 Partendo dal lavoro descritto in precedenza è stata sviluppata una web app con [shiny](https://shiny.rstudio.com/) per rappresentare gli output.
 In questa web app viene preso in considerazione l'intero dataset, circa 1.5MLN direcensioni su birre perciò il caricamento iniziale richiederà del tempo come mostra la prima schermata dell'app:
 
-![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/1_caricamento.jpg)
+![caricamento](https://i.imgur.com/W8ukMjM.jpg)
 
 Un messaggio informerà sull'avvenuto caricamento dei dati
 
-![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/2_esito.jpg)
+![complete](https://i.imgur.com/Q6XMmb7.jpg)
 
 
 L'app è suddivisa in 3 sezioni
@@ -47,19 +47,19 @@ L'app è suddivisa in 3 sezioni
 
 In questa tab si scegli la birra per la quale si desidera vedere le recensioni.
 
-![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/3_Birre.jpg)
+![birre](https://i.imgur.com/90kEhYf.jpg)
 
 ### Compara
 
 Attraverso una delle funzioni sviluppate da Nicola Procopio vengono comparate le birre, mettendo in risalto le informazioni attribuite a ciascuna birra.
 
-![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/4_compara.jpg)
+![compara](https://i.imgur.com/CGUXLbN.jpg)
 
 ### Scopri
 
 Nell'ultima tab si valuta il modello di raccomandazione che suggerisce le birre più simili alla tua scelta, qualora ve ne sia una che rispecchia il giusto confronto.
 
-![alt text](https://raw.githubusercontent.com/MarCortese/databeers/master/Screen/5_scopri.jpg)
+![scopri](https://i.imgur.com/QOvMdpi.jpg)
 
 ### Link
 [Potete trovare l'app qui]()
