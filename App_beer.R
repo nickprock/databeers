@@ -1,12 +1,14 @@
-library(shiny)
-library(shinydashboard)
-#library(dplyr)
-library(RColorBrewer)
-library(plotly)
-library(data.table)
-library(shinyalert)
-library(shinyjs)
-library(shinybusy)
+list.of.packages <- c("shiny", "shinydashboard", "RColorBrewer", "plotly",
+                      "data.table", "shinyalert", "shinyjs", "shinybusy", "ABACUS")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+
+if (length(new.packages)>0){
+  install.packages(new.packages)
+  lapply(list.of.packages, library, character.only = TRUE)
+} else {
+  lapply(list.of.packages, library, character.only = TRUE) 
+}
+
 source(file = "script/functions.R")
 source(file = "script/compareMyBeer.R")
 load("data/beer_reviews.rda")
