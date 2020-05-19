@@ -1,5 +1,5 @@
 list.of.packages <- c("shiny", "shinydashboard", "RColorBrewer", "plotly",
-                      "data.table", "shinyalert", "shinyjs", "shinybusy", "ABACUS")
+                      "data.table", "shinyalert", "shinyjs", "shinybusy")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
 if (length(new.packages)>0){
