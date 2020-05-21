@@ -1,12 +1,12 @@
-list.of.packages <- c("shiny", "shinydashboard", "RColorBrewer", "plotly",
+list_of_packages <- c("shiny", "shinydashboard", "RColorBrewer", "plotly",
                       "data.table", "shinyalert", "shinyjs", "shinybusy")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+new_packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 
-if (length(new.packages)>0){
-  install.packages(new.packages)
-  lapply(list.of.packages, library, character.only = TRUE)
+if (length(new_packages)>0){
+  install.packages(new_packages)
+  lapply(list_of_packages, library, character.only = TRUE)
 } else {
-  lapply(list.of.packages, library, character.only = TRUE) 
+  lapply(list_of_packages, library, character.only = TRUE) 
 }
 
 source(file = "script/functions.R")
