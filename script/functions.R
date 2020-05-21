@@ -1,6 +1,20 @@
-library(dplyr)
-#library(readr)
-library(stringr)
+if(!require(dplyr)){
+  install.packages("dplyr")
+  library(dplyr)
+} else {
+  library(dplyr)
+}
+
+if(!require(stringr)){
+  install.packages("stringr")
+  library(stringr)
+} else {
+  library(stringr)
+}
+
+# library(dplyr)
+# library(readr)
+# library(stringr)
 options( warn = -1 )
 '
 # carica il file con le recensioni
