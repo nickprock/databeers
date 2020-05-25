@@ -12,7 +12,23 @@ if (length(new_packages)>0){
 source(file = "script/functions.R")
 source(file = "script/compareMyBeer.R")
 load("data/beer_reviews.rda")
+fix.encoding <- function(df, originalEncoding = "UTF-8") {
+  numCols <- ncol(df)
+  df <- data.frame(df)
+  for (col in 1:numCols)
+  {
+    if(class(df[, col]) == "character"){
+      Encoding(df[, col]) <- originalEncoding
+    }
+    
+    if(class(df[, col]) == "factor"){
+      Encoding(levels(df[, col])) <- originalEncoding
+    }
+  }
+  return(as_data_frame(df))
+}
 
+data<-fix.encoding(data)
 
 appCSS <- "
 #loading-content {
@@ -31,8 +47,12 @@ appCSS <- "
 
 header <- dashboardHeader(
   #title =strong("DataBeers") 
-  title = span(img(src = "https://www.svgrepo.com/show/108385/beer.svg", height = 50), "DataBeeRs"),
-  titleWidth = 300
+  title = span(img(src = "https://www.svgrepo.com/show/108385/beer.svg", height = 50), "DataBeeRs",),
+  titleWidth = 300,
+  
+  tags$li(actionLink("openModal", label = "Dati", icon = icon("info")),
+          class = "dropdown")
+
 )
 
 
@@ -41,6 +61,7 @@ sidebar <- dashboardSidebar(
   sidebarMenu(
 
     style = "position: fixed; overflow: visible;",
+    menuItem("Home",tabName = "home",icon=icon("home")),
     menuItem("Birre", tabName = "beer", icon = icon("beer")),
     menuItem("Compara", tabName = "compara", icon = icon("beer")),
     menuItem("Scopri", tabName = "scopri", icon = icon("bullseye")),
@@ -64,7 +85,7 @@ sidebar <- dashboardSidebar(
       )),
     useShinyalert(),  # Set up shinyalert
     actionButton("preview", "", 
-    style="color: #36393d; background-color: #36393d; border-color: #36393d")
+    style="color: #A66900; background-color: #A66900; border-color: #A66900")
   )
 )
 
@@ -72,30 +93,89 @@ sidebar <- dashboardSidebar(
 # fluidRow
 
 
+# frow1 <- fluidRow(
+#   
+#   useShinyjs(),
+#   inlineCSS(appCSS),
+#   
+#   # Loading message
+#   div(
+#     id = "loading-content",
+#     h2("Caricamento dati..."),
+#     h3("...attendere 1 minuto...")
+#   ),
+#   
+# 
+#   hidden(
+#     div(
+#       id = "app-content",
+#           column(6,
+#           h3("Scegli la tua birra e leggi le recensioni")),
+#           column(6,
+#           img(src="https://freedesignfile.com/upload/2015/05/Beer-flat-style-background-vector-design-04.jpg",height = "200px",style="display: block; margin-left: auto; margin-right: auto;")
+#           )
+#     )
+#   )
+# )
+
+
+
+
+frowhome<-fluidRow(
+  tags$img(src="https://img.grouponcdn.com/iam/eq6coTtDPSqte1nedEWm/Sc-2048x1229/v1/c700x420.jpg",width="500",style="display: block; margin-left: auto; margin-right: auto;"),
+  
+  hr(),
+  hr(),
+  div(h2("La seguente app mostra i valori legati alle recensione di birra, inoltre sono stati sviluppati
+         due algoritmi per comparare differenti birre e per consigliare le birre recensite con valori più analoghi alla tua preferita.",align="justify"),style = "color:brown"),
+  
+  br(),
+  
+  div(h2("Data la grande mole di dati bisogna attendere il messaggio di avvenuto caricamento dei dati, potrebbe richiedere alcuni minuti.",align="justify"),style = "color:brown"),
+  # br(),
+  # div(h3("•	Dataset completo, oltre 1.5 ML di recensioni, potrebbe richiedere alcuni minuti;
+  #         ",align="justify"),style = "color:brown"),
+  # div(h3("•	Dataset Ridotto1, considerate massimo 10 recensioni per birra;
+  #         ",align="justify"),style = "color:brown"),
+  # div(h3("•	Dataset Ridotto2, considerate massimo 2 recensioni per birra.
+  #         ",align="justify"),style = "color:brown")
+      )
+
+# frowhome2<-fluidRow(
+#   
+#   radioButtons("SceltaDataset", label = h3(""),
+#                choices = list("Totale" = 1, "Ridotto1" = 2, "Ridotto2" = 3), 
+#                selected = 3, inline=T)
+#   
+# )
+
+
 frow1 <- fluidRow(
   
   useShinyjs(),
-  inlineCSS(appCSS),
-  
-  # Loading message
-  div(
-    id = "loading-content",
-    h2("Caricamento dati..."),
-    h3("...attendere 1 minuto...")
-  ),
-  
-
-  hidden(
-    div(
-      id = "app-content",
-          column(6,
-          h3("Scegli la tua birra e leggi le recensioni")),
-          column(6,
-          img(src="https://freedesignfile.com/upload/2015/05/Beer-flat-style-background-vector-design-04.jpg",height = "200px",style="display: block; margin-left: auto; margin-right: auto;")
-          )
-    )
-  )
+  # inlineCSS(appCSS),
+  # 
+  # # Loading message
+  # div(
+  #   id = "loading-content",
+  #   h2("Caricamento dati..."),
+  #   h3("...attendere 1 minuto...")
+  # ),
+  # 
+  # 
+  # hidden(
+  #   div(
+  #     id = "app-content",
+      column(6,
+             h3("Scegli la tua birra e leggi le recensioni")),
+      column(6,
+             img(src="https://freedesignfile.com/upload/2015/05/Beer-flat-style-background-vector-design-04.jpg",height = "200px",style="display: block; margin-left: auto; margin-right: auto;")
+      )
+  #   )
+  # )
 )
+
+
 frow2<-fluidRow(
   selectizeInput(
     'beer1', '',
@@ -153,20 +233,74 @@ frow6<-fluidRow(
 
 
 # combine the two fluid rows to make the body
-body <- dashboardBody(tags$head(tags$style(HTML('
-                                /* body */
-                                .content-wrapper, .right-side {
+body <- dashboardBody(
+
+  tags$head(tags$style(HTML('
+                                /* logo */
+                                .skin-blue .main-header .logo {
+                                background-color: #ffffff;
+                                font-family: "Georgia", cursive;
+                                font-weight: bold;
+                                font-size: 24px;
+                                color:#A66900;
+                                }
+
+                                /* logo when hovered */
+                                .skin-blue .main-header .logo:hover {
                                 background-color: #ffffff;
                                 }
 
-                                '))),
-  tabItems(tabItem(tabName = "beer",frow1,frow2),
+                                /* navbar (rest of the header) */
+                                .skin-blue .main-header .navbar {
+                                background-color: #ffffff;
+                                font-family: "Georgia";
+                                font-size: 14px;
+                                color:#A66900;
+                                }
+
+                                /* main sidebar */
+                                .skin-blue .main-sidebar {
+                                background-color: #A66900;
+                                }
+
+                                /* active selected tab in the sidebarmenu */
+                                .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{
+                                background-color: #A66900;
+                                }
+                                
+                                /* other links in the sidebarmenu when hovered */
+                                .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{
+                                background-color: #A66900;
+                                }
+                            
+
+                            
+                                /* other links in the sidebarmenu */
+                                .skin-blue .main-sidebar .sidebar .sidebar-menu a{
+                                background-color: #A66900;
+                                color: #5f2d02;
+                                }
+
+                                /* toggle button when hovered  */
+                                .skin-blue .main-header .navbar .sidebar-toggle:hover{
+                                background-color: #A66900;
+                                }'
+                            # /* body */
+                            # .content-wrapper, .right-side {
+                            # background-color: #ffffff;
+                            # }
+                            
+  ))),
+
+
+  tabItems(tabItem(tabName="home",frowhome),#,frowhome2),
+           tabItem(tabName = "beer",frow1,frow2),
            tabItem(tabName = "compara",frow3,frow4,frow5),
            tabItem(tabName = "scopri",frow6)))
 
 #completing the ui part with dashboardPage
 options(show.error.messages = FALSE)
-ui <- dashboardPage(title = 'Data Beers', header, sidebar, body, skin='yellow')
+ui <- dashboardPage(title = 'Data Beers', header, sidebar, body)#, skin='yellow')
 server <- function(input, output,session) {
   options(show.error.messages = FALSE)
   observeEvent(!input$preview, {
@@ -174,8 +308,18 @@ server <- function(input, output,session) {
   })
 
 
-hide(id = "loading-content", anim = TRUE, animType = "fade")    
-show("app-content")
+# hide(id = "loading-content", anim = TRUE, animType = "fade")    
+# show("app-content")
+  
+  observeEvent(input$openModal, {
+    showModal(
+      modalDialog(title = "Dati",
+                  p("I dati sono reperibili al seguente link:"),
+                  p(h3(helpText(   a("Data set",     href="https://data.world/socialmediadata/beeradvocate")),align="center")))
+    )
+  })
+  
+  
   
   output$value <- renderPrint({ input$text })
   if(names(data)[13]=="beer_beerid."){
@@ -326,9 +470,17 @@ show("app-content")
      compareMyBeer(myBeer = input$beer_recommended)
    })
    
+   options(show.error.messages = FALSE)
+   observeEvent(input$run, {
+     shinyalert("Attendere", "Il calcolo potrebbe richiedere alcuni minuti", type = "warning", timer=7000)
+   })
+   
    output$recommended_show <- renderTable({
      recommended_Beers()
    })
+   
+
+   
    
    
    
